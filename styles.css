@@ -1,0 +1,103 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Body & Page Setup */
+  body {
+    background-color:  #cfd8df;
+    color: #333;
+  }
+  
+  /* Navigation Bar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px 30px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .navbar .name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .navbar ul {
+    display: flex;
+    list-style-type: none;
+  }
+  
+  .navbar ul li {
+    margin-left: 20px;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+  }
+  
+  .navbar ul li a:hover {
+    color: #0078d4;
+  }
+  
+  /* Content Area */
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Post Styles */
+  .post {
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .post .header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .post .header .user {
+    font-weight: bold;
+    margin-left: 10px;
+    color: #333;
+  }
+  
+  .post img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .post .footer {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .post .footer .likes {
+    font-weight: bold;
+  }
+  
+  .post .footer .caption {
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  .post .footer .date {
+    font-size: 12px;
+    color: #888;
+  }
+  
