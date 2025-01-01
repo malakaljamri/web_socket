@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* General page layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: linear-gradient(to bottom right, #ccd7e0, #f0f4f8);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container for the form */
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Logo section */
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #385185;
+            margin-bottom: 20px;
+        }
+
+        /* Form header */
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Input fields */
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* Button styles */
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3897f0;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #347dc4;
+        }
+
+        /* Register link styles */
+        .register-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: #3897f0;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo">Real-Time Forum</div>
+        <h1>Login</h1>
+        <form id="login-form" method="POST" action="/login">
+            <input type="email" id="username" name="email" placeholder="Enter your E-mail" required>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="register-link">
+            <p>Don't have an account? <a href="#" onclick="loadPage('register')">Register here</a></p>
+        </div>
+    </div>
+</body>
+</html>
