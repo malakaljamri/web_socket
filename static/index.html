@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="/static/styles/styles.css">
     <link rel="stylesheet" href="/static/styles/createpost.css">
     <link rel="stylesheet" href="/static/styles/signin.css">
@@ -15,54 +16,53 @@
 
 <body>
     <!-- navbar when signed in -->
-    <div class="logout-nav">
+    <nav class="container-fluid logout-nav">
         <div class="logo">real-time-forum</div>
         <div class="nav-right">
             <div class="profile"></div>
-            <button class="logout-btn">
+            <button class="logout-btn contrast">
                 <img src="/static/assets/signout.svg" alt="signout" class="src">
             </button>
         </div>
-    </div>
+    </nav>
 
     <!-- navbar when signed out -->
-    <div class="signup-nav">
+    <nav class="container-fluid signup-nav">
         <div class="logo">real-time-forum</div>
         <div class="nav-right">
-            <button class="signup-btn">Sign up</button>
+            <button class="signup-btn contrast outline">Sign up</button>
         </div>
-    </div>
+    </nav>
 
     <!-- form when registering -->
-    <div class="register-container">
-        <div class="register">
+    <div class="container register-container">
+        <article class="register">
             <form>
-                <input type="text" placeholder="First Name" id="fname" class="signin-input" name="fname">
-                <input type="text" placeholder="Last Name" id="lname" class="signin-input" name="lname">
-                <input type="email" placeholder="email@example.com" id="email" class="signin-input" name="email">
-                <input type="text" placeholder="username" id="register-username" class="signin-input" name="username">
-                <input type="date" id="age" class="signin-input" name="age">
-                <input type="text" placeholder="gender" id="gender" class="signin-input" name="gender">
-                <input type="password" placeholder="password" id="register-password" class="signin-input"
-                    name="password">
-                <button class="register-btn">Create Account</button>
+                <input type="text" placeholder="First Name" id="fname" name="fname">
+                <input type="text" placeholder="Last Name" id="lname" name="lname">
+                <input type="email" placeholder="email@example.com" id="email" name="email">
+                <input type="text" placeholder="username" id="register-username" name="username">
+                <input type="date" id="age" name="age">
+                <input type="text" placeholder="gender" id="gender" name="gender">
+                <input type="password" placeholder="password" id="register-password" name="password">
+                <button class="register-btn contrast">Create Account</button>
                 <div class="signedup">Already have an account? <span id="signin-link" class="link">Sign In</span></div>
             </form>
-        </div>
+        </article>
     </div>
 
     <!-- form when signing in -->
-    <div class="signin">
-        <input type="text" placeholder="username or email" class="signin-input" id="email-username"
-            class="category-input" name="username"><br>
-        <input type="password" placeholder="password" class="signin-input" id="signin-password" class="category-input"
-            name="password">
-        <button class="signin-btn">Sign in</button>
-        <div class="not-signedup">Don't have an account? <span id="signup-link" class="link">Sign Up!</span></div>
+    <div class="container signin">
+        <article>
+            <input type="text" placeholder="username or email" id="email-username" name="username">
+            <input type="password" placeholder="password" id="signin-password" name="password">
+            <button class="signin-btn contrast">Sign in</button>
+            <div class="not-signedup">Don't have an account? <span id="signup-link" class="link">Sign Up!</span></div>
+        </article>
     </div>
 
     <!-- home -->
-    <div class="content-wrapper">
+    <div class="container content-wrapper">
         <!-- posts main div -->
         <div class="mid-section">
 
@@ -77,7 +77,7 @@
                             <option value="programming">Programming</option>
                         </select>
                     </div>
-                    <button type="button" class="new-post-btn">
+                    <button type="button" class="new-post-btn contrast outline">
                         <img src="/static/assets/compose.svg">
                     </button>
                 </div>
@@ -109,7 +109,7 @@
                     <option value="sports">Sports</option>
                     <option value="programming">Programming</option>
                 </select>
-                <button class="create-post-btn">
+                <button class="create-post-btn contrast">
                     <h4>Create Post</h4>
                 </button>
             </div>
