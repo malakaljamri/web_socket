@@ -1,0 +1,130 @@
+.chat-wrapper {
+    position: fixed;
+    z-index: 999;
+    right: 0;
+    bottom: 0;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    height: 450px;
+    width: 350px;
+    background-color: darkgrey;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+}
+
+.chat-username-wrapper {
+    top: 0;
+    height: 60px;
+    padding: 18px;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.chat-user {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.chat {
+    flex: 1;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sender-container {
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    justify-content: end;
+}
+
+.receiver-container {
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    position: relative;
+    display: flex;
+}
+
+.sender,
+.receiver {
+    height: fit-content;
+    width: fit-content;
+    min-width: 150px;
+    max-width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    padding-bottom: 22px;
+    padding-right: 20px;
+    position: inherit;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: white;
+}
+
+.sender {
+    border-radius: 10px 10px 0px 10px;
+    background-color: lightcoral;
+}
+
+.receiver {
+    border-radius: 10px 10px 10px 0px;
+    background-color: grey;
+}
+
+.chat-time {
+    position: absolute;
+    bottom: 5px;
+    right: 8px;
+    color: white;
+    font-size: .8em;
+}
+
+.chat-date-wrapper {
+    height: fit-content;
+    width: 80%;
+    margin: 20px;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-wrapper {
+    width: 90%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+#chat-input {
+    border: none;
+    width: 420px;
+    height: 50px;
+    outline: none;
+    border-radius: 10px;
+    padding-left: 20px;
+    background-color: grey;
+    color: white;
+    margin-left: 20px;
+}
+
+#send-btn {
+    border: none;
+    width: 38px;
+    height: 36px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -50px;
+}
