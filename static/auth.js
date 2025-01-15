@@ -61,7 +61,7 @@ document.querySelector('.signin-btn').addEventListener('click', async function (
         document.querySelector('.profile').innerText = state.currUsername; // Display username
 
         // Update UI to show logged-in state
-        signinContainer.style.display = 'none';
+        signinContainer.classList.remove('active');
         signupNav.style.display = 'none';
         contentWrapper.style.display = 'flex';
         logoutNav.style.display = 'flex';
@@ -82,26 +82,26 @@ document.querySelector('.signin-btn').addEventListener('click', async function (
 });
 
 document.querySelector('#signup-link').addEventListener('click', function () {
-    signinContainer.style.display = 'none'; // Hide sign-in form
-    registerContainer.style.display = 'block'; // Show registration form
+    signinContainer.classList.remove('active'); // Hide sign-in form
+    registerContainer.classList.add('active'); // Show registration form
     signupBtn.innerText = 'Sign in'; // Update button text
 });
 
 document.querySelector('#signin-link').addEventListener('click', function () {
-    signinContainer.style.display = 'flex'; // Show sign-in form
-    registerContainer.style.display = 'none'; // Hide registration form
+    signinContainer.classList.add('active'); // Show sign-in form
+    registerContainer.classList.remove('active'); // Hide registration form
     signupBtn.innerText = 'Sign up'; // Update button text
 });
 
 signupBtn.addEventListener('click', function () {
     if (signupBtn.textContent == 'Sign up') {
         signupBtn.textContent = 'Sign in';
-        signinContainer.style.display = 'none'; // Hide sign-in form
-        registerContainer.style.display = 'block'; // Show registration form
+        signinContainer.classList.remove('active'); // Hide sign-in form
+        registerContainer.classList.add('active'); // Show registration form
     } else {
         signupBtn.textContent = 'Sign up';
-        signinContainer.style.display = 'flex'; // Show sign-in form
-        registerContainer.style.display = 'none'; // Hide registration form
+        signinContainer.classList.add('active'); // Show sign-in form
+        registerContainer.classList.remove('active'); // Hide registration form
     }
 });
 
@@ -152,8 +152,8 @@ document.querySelector('.register-btn').addEventListener('click', function (e) {
         alert(msg); // Notify user of registration status
 
         // Show sign-in form after successful registration
-        registerContainer.style.display = 'none';
-        signinContainer.style.display = 'flex';
+        registerContainer.classList.remove('active');
+        signinContainer.classList.add('active');
     });
 });
 
@@ -166,8 +166,8 @@ document.querySelector('.logout-btn').addEventListener('click', function () {
         console.log(msg);
 
         // Update UI to show the sign-in form
-        signinContainer.style.display = 'flex';
-        registerContainer.style.display = 'none';
+        signinContainer.classList.add('active');
+        registerContainer.classList.remove('active');
         contentWrapper.style.display = 'none';
         signupNav.style.display = 'flex';
         logoutNav.style.display = 'none';
