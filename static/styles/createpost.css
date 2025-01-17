@@ -36,7 +36,7 @@ textarea {
 .create-post-btn {
     /* padding: 20px; */
     border-radius: 10px;
-    background-color: lightblue;
+    background-color: rgb(255, 255, 255);
     color: black;
     margin-top: 3px;
 }

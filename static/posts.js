@@ -268,9 +268,16 @@ document.querySelector('.new-post-btn').addEventListener('click', function () {
  * Event listener for the "Create Post" button to submit a new post
  */
 document.querySelector('.create-post-btn').addEventListener('click', function () {
-    const title = document.querySelector('#create-post-title').value; // Get post title
-    const body = document.querySelector('#create-post-body').value; // Get post body
+    const title = document.querySelector('#create-post-title').value.trim(); // Get post title and remove whitespace
+    const body = document.querySelector('#create-post-body').value.trim(); // Get post body and remove whitespace
     const category = document.querySelector('#create-post-categories').value; // Get post category
+    
+    // Validate empty fields
+    if (!title || !body) {
+        alert('Please fill in both title and content fields before creating a post.');
+        return;
+    }
+
     let data = {
         id: 0,
         user_id: state.currId, // Set to current user ID

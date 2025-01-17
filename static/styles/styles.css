@@ -105,42 +105,106 @@ body {
 /* Posts Grid */
 .posts-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
 }
 
 .post {
     background-color: var(--card-background-color);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-lg);
+    border-radius: 15px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
-    transition: var(--transition);
+    gap: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    height: auto;
-    min-height: 200px;
+    min-height: 250px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .post:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.title {
-    font-size: 1.2rem;
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.post-username {
     font-weight: 600;
-    color: var(--color);
-    margin-bottom: var(--spacing-sm);
+    color: var(--primary);
+    font-size: 1.1em;
 }
 
-.post-body {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: var(--spacing-sm);
-    line-height: 1.6;
+.post-timestamp {
     color: var(--muted-color);
+    font-size: 0.85em;
+}
+
+.post-category {
+    background-color: rgba(16, 149, 193, 0.15);
+    color: var(--primary);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.post-content {
+    flex: 1;
+    line-height: 1.6;
+    color: var(--color);
+    overflow-y: auto;
+    padding-right: 8px;
+    font-size: 0.95em;
+}
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--muted-color);
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.post-action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--primary);
+}
+
+.post-action-btn img {
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
+.post-action-btn:hover img {
+    opacity: 1;
 }
 
 /* Author and Interaction Styles */
