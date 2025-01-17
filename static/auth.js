@@ -62,6 +62,7 @@ document.querySelector('.signin-btn').addEventListener('click', async function (
 
         // Update UI to show logged-in state
         signinContainer.classList.remove('active');
+        signinContainer.style.display = 'none'; // Force hide the signin container
         signupNav.style.display = 'none';
         contentWrapper.style.display = 'flex';
         logoutNav.style.display = 'flex';
