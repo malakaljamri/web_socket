@@ -67,6 +67,17 @@
         <div class="mid-section">
 
             <div class="top-panel">
+                <div class="users-status-bar">
+                    <div class="status-group">
+                        <span class="status-label">Online</span>
+                        <div class="online-users"></div>
+                    </div>
+                    <div class="status-divider"></div>
+                    <div class="status-group">
+                        <span class="status-label">Offline</span>
+                        <div class="offline-users"></div>
+                    </div>
+                </div>
 
                 <div class="top-panel-nav">
                     <div class="filter-categories">
@@ -188,13 +199,13 @@
 
         </div>
 
-        <!-- users list -->
+        <!-- right panel -->
         <div class="right-panel">
-            <div class="users">
-                <p class="online-list">Online</p>
-                <div class="online-users"></div>
-                <p class="online-list" id="offline-list">Offline</p>
-                <div class="offline-users"></div>
+            <div class="right-panel-content">
+                <button type="button" class="new-post-btn contrast">
+                    <span class="new-post-text">Create New Post</span>
+                    <img src="/static/assets/compose.svg">
+                </button>
             </div>
         </div>
 
