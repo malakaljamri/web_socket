@@ -7,124 +7,152 @@
     margin-bottom: 20px;
     height: 450px;
     width: 350px;
-    background-color: darkgrey;
-    border-radius: 10px;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: var(--border-radius);
     display: none;
     flex-direction: column;
+    box-shadow: var(--card-box-shadow);
 }
 
 .chat-username-wrapper {
     top: 0;
     height: 60px;
-    padding: 18px;
-    border-radius: 10px 10px 0px 0px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: white;
+    background-color: var(--card-sectionning-background-color);
+    border-bottom: 1px solid var(--card-border-color);
 }
 
 .chat-user {
     display: flex;
-    gap: 20px;
+    gap: var(--spacing-md);
     align-items: center;
+}
+
+.chat-user-username {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.close-chat {
+    color: var(--primary);
+    font-size: 1.2em;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity var(--transition);
+}
+
+.close-chat:hover {
+    opacity: 1;
 }
 
 .chat {
     flex: 1;
-    overflow: scroll;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+    background-color: var(--card-background-color);
 }
 
 .sender-container {
     width: 100%;
-    height: fit-content;
-    padding: 10px;
-    position: relative;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .receiver-container {
     width: 100%;
-    height: fit-content;
-    padding: 10px;
-    position: relative;
     display: flex;
+    justify-content: flex-start;
 }
 
 .sender,
 .receiver {
-    height: fit-content;
-    width: fit-content;
-    min-width: 150px;
-    max-width: 200px;
-    padding: 10px;
-    border-radius: 10px;
-    padding-bottom: 22px;
-    padding-right: 20px;
-    position: inherit;
-    margin-bottom: 5px;
-    margin-top: 5px;
-    color: white;
+    max-width: 80%;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+    word-break: break-word;
 }
 
 .sender {
-    border-radius: 10px 10px 0px 10px;
-    background-color: lightcoral;
+    background-color: var(--primary);
+    color: var(--primary-inverse);
+    border-bottom-right-radius: 4px;
 }
 
 .receiver {
-    border-radius: 10px 10px 10px 0px;
-    background-color: grey;
+    background-color: var(--secondary);
+    color: var(--primary-inverse);
+    border-bottom-left-radius: 4px;
 }
 
 .chat-time {
-    position: absolute;
-    bottom: 5px;
-    right: 8px;
-    color: white;
-    font-size: .8em;
+    font-size: 0.75em;
+    opacity: 0.9;
+    margin-top: var(--spacing-sm);
+    display: block;
 }
 
 .chat-date-wrapper {
-    height: fit-content;
-    width: 80%;
-    margin: 20px;
-    font-size: .8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    padding: var(--spacing-sm) 0;
+    font-size: 0.8rem;
+    text-align: center;
+    color: var(--muted-color);
 }
 
 .send-wrapper {
-    width: 90%;
-    height: 80px;
+    padding: var(--spacing-md);
     display: flex;
     align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--card-sectionning-background-color);
+    border-top: 1px solid var(--card-border-color);
 }
 
 #chat-input {
-    border: none;
-    width: 420px;
-    height: 50px;
-    outline: none;
-    border-radius: 10px;
-    padding-left: 20px;
-    background-color: grey;
-    color: white;
-    margin-left: 20px;
+    flex: 1;
+    margin: 0;
+    height: 40px;
+    padding: 8px var(--spacing-md);
+    background-color: var(--background-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: var(--border-radius);
+    color: var(--color);
+}
+
+#chat-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-focus);
 }
 
 #send-btn {
+    background-color: var(--primary);
     border: none;
-    width: 38px;
-    height: 36px;
-    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: -50px;
+    cursor: pointer;
+    transition: transform var(--transition);
+}
+
+#send-btn:hover {
+    transform: translateY(-2px);
+}
+
+#send-btn img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
 }
