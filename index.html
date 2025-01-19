@@ -1,29 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real-time-forum</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles/styles.css">
+    <link rel="stylesheet" href="/static/styles/createpost.css">
+    <link rel="stylesheet" href="/static/styles/signin.css">
+    <link rel="stylesheet" href="/static/styles/register.css">
+    <link rel="stylesheet" href="/static/styles/chat.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>real-time-forum</title>
 </head>
+
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="name">Real-Time-Forum</div>
-    <ul>
-      <li><a href="#" onclick="loadPage('home')">Home</a></li>
-      <li><a href="#" onclick="loadPage('posts')">posts</a></li>
-      <li><a href="#" onclick="loadPage('comments')">comments</a></li>
-      <li><a href="#" onclick="loadPage('liked')">liked-posts</a></li>
-      <li><a href="#" onclick="loadPage('direct-msgs')">direct-msgs</a></li>
-    </ul>
-  </nav>
+    <!-- navbar when signed in -->
+    <div class="logout-nav">
+        <div class="logo">real-time-forum</div>
+        <div class="nav-right">
+            <div class="profile"></div>
+            <button class="logout-btn">
+                <img src="/static/assets/signout.svg" alt="signout" class="src">
+            </button>
+        </div>
+    </div>
 
-  <!-- Main Content Area -->
-  <div id="content" class="content">
-    <!-- Dynamic content will be injected here -->
-  </div>
+    <!-- navbar when signed out -->
+    <div class="signup-nav">
+        <div class="logo">real-time-forum</div>
+        <div class="nav-right">
+            <button class="signup-btn">Sign up</button>
+        </div>
+    </div>
 
-  <script src="header.js"></script>
+    <!-- form when registering -->
+    <div class="register-container">
+        <div class="register">
+            <form>
+                <input type="text" placeholder="First Name" id="fname" class="signin-input" name="fname">
+                <input type="text" placeholder="Last Name" id="lname" class="signin-input" name="lname">
+                <input type="email" placeholder="email@example.com" id="email" class="signin-input" name="email">
+                <input type="text" placeholder="username" id="register-username" class="signin-input" name="username">
+                <input type="date" id="age" class="signin-input" name="age">
+                <input type="text" placeholder="gender" id="gender" class="signin-input" name="gender">
+                <input type="password" placeholder="password" id="register-password" class="signin-input"
+                    name="password">
+                <button class="register-btn">Create Account</button>
+                <div class="signedup">Already have an account? <span id="signin-link" class="link">Sign In</span></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- form when signing in -->
+    <div class="signin">
+        <input type="text" placeholder="username or email" class="signin-input" id="email-username"
+            class="category-input" name="username"><br>
+        <input type="password" placeholder="password" class="signin-input" id="signin-password" class="category-input"
+            name="password">
+        <button class="signin-btn">Sign in</button>
+        <div class="not-signedup">Don't have an account? <span id="signup-link" class="link">Sign Up!</span></div>
+    </div>
+
+    <!-- home -->
+    <div class="content-wrapper">
+        <!-- posts main div -->
+        <div class="mid-section">
+
+            <div class="top-panel">
+
+                <div class="top-panel-nav">
+                    <div class="filter-categories">
+                        <select name="categories" id="categories">
+                            <option value="all">All posts</option>
+                            <option value="technology">General</option>
+                            <option value="health">Sports</option>
+                            <option value="programming">Programming</option>
+                        </select>
+                    </div>
+                    <button type="button" class="new-post-btn">
+                        <img src="/static/assets/compose.svg">
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- new post notification -->
+            <div class="new-post-notif-wrapper">
+                <div class="new-post-popup link">
+                    New post!
+                </div>
+            </div>
+
+            <!-- main posts container (home) -->
+            <div class="posts-container">
+            </div>
+
+            <!-- form when creating a post -->
+            <div class="create-post-container">
+                <div class="back">
+                    <img src="/static/assets/back-arrow.svg">
+                </div>
+                <div class="create-title">
+                    <input id="create-post-title" type="text" placeholder="Title...">
+                </div>
+                <textarea id="create-post-body" placeholder="Content..." name="body" rows="4" cols="50"></textarea>
+                <select name="categories" id="create-post-categories">
+                    <option value="general">General</option>
+                    <option value="sports">Sports</option>
+                    <option value="programming">Programming</option>
+                </select>
+                <button class="create-post-btn">
+                    <h4>Create Post</h4>
+                </button>
+            </div>
+
+            <!-- when viewing single post -->
+            <div class="post-container">
+                <div class="back" id="back-btn">
+                    <img src="/static/assets/back-arrow.svg">
+                </div>
+                <div class="post-wrapper">
+                    <div class="space-between">
+                        <div class="title" id="title">This is a title</div>
+                        <div class="category">JavaScript</div>
+                    </div>
+                    <div class="author" id="author-post">
+                        <div class="left">
+                            <div class="post-username" id="username">user</div>
+                            <div class="date" id="date">01 January 1970</div>
+                        </div>
+                    </div>
+                    <div class="full-content">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
+                        of type and scrambled it to make a type specimen book.
+                    </div>
+
+                    <div class="comments-wrapper">
+                        <div class="likes-dislikes-wrapper">
+                            <div class="likes-wrapper">
+                                <img src="/static/assets/like.svg" alt="" class="src" id="like-btn">
+                                <div class="likes" id="post-likes"></div>
+                            </div>
+                            <div class="likes-wrapper">
+                                <img src="/static/assets/dislike.svg" alt="" class="src" id="dislike-btn">
+                                <div class="dislike" id="post-dislikes"></div>
+                            </div>
+                        </div>
+                        <div class="comments">
+                            <div class="comment" id="post-comments"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="send-comment">
+                    <input type="text" id="comment-input" placeholder="Write a comment">
+                    <div class="send-comment-btn">
+                        <img src="/static/assets/send.svg">
+                    </div>
+                </div>
+
+                <div class="comments-container">
+                </div>
+            </div>
+
+            <!-- main chat pop up -->
+            <div class="chat-wrapper">
+
+                <div class="chat-username-wrapper">
+                    <div class="chat-user">
+                        <div class="chat-user-username"></div>
+                    </div>
+                    <div class="close-chat link">X</div>
+                </div>
+
+                <div class="chat"></div>
+
+                <div class="send-wrapper">
+                    <input type="text" id="chat-input" placeholder="Your message...">
+                    <button id="send-btn">
+                        <img src="/static/assets/send.svg">
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- users list -->
+        <div class="right-panel">
+            <div class="users">
+                <p class="online-list">Online</p>
+                <div class="online-users"></div>
+                <p class="online-list" id="offline-list">Offline</p>
+                <div class="offline-users"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="/static/auth.js"></script>
+    <script type="module" src="/static/chat.js"></script>
+    <script type="module" src="/static/index.js"></script>
+    <script type="module" src="/static/posts.js"></script>
+    <script type="module" src="/static/state.js"></script>
+    <script type="module" src="/static/utils.js"></script>
+    <script type="module" src="/static/ws.js"></script>
 </body>
+
 </html>
