@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"time"   
+	"time"
 
 	"github.com/gorilla/websocket"
 
@@ -15,8 +15,8 @@ import (
 
 const (
 	writeWait      = 10 * time.Second
-	pongWait       = 60 * time.Second 
-	pingPeriod     = (pongWait * 9) / 10 
+	pongWait       = 60 * time.Second
+	pingPeriod     = (pongWait * 9) / 10
 	maxMessageSize = 512
 )
 
