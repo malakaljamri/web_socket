@@ -29,6 +29,7 @@ import {
 // Select DOM elements for various sections of the application
 const contentWrapper = document.querySelector('.content-wrapper');
 const signinContainer = document.querySelector('.signin');
+const signupContainer = document.querySelector('.register-container');
 const signupNav = document.querySelector('.signup-nav');
 const logoutNav = document.querySelector('.logout-nav');
 
@@ -68,9 +69,18 @@ window.addEventListener('DOMContentLoaded', async function () {
         });
 });
 
-/**
- * Event listeners for navigating back to the home page when clicking the logo or back buttons
- */
+// Event listener for toggling between the sign-in and sign-up forms
+document.querySelector('#signup-link').addEventListener('click', function () {
+    signinContainer.style.display = 'none'; // Hide sign-in form
+    signupContainer.style.display = 'flex'; // Show sign-up form
+});
+
+document.querySelector('#signin-link').addEventListener('click', function () {
+    signupContainer.style.display = 'none'; // Hide sign-up form
+    signinContainer.style.display = 'flex'; // Show sign-in form
+});
+
+// Event listeners for navigating back to the home page when clicking the logo or back buttons
 document.querySelector('.logo').addEventListener('click', home);
 document.querySelector('.back').addEventListener('click', home);
 document.querySelector('#back-btn').addEventListener('click', home);
