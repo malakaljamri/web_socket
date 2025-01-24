@@ -37,13 +37,15 @@ type OnlineUsers struct {
 }
 
 type Message struct {
-	Id          int    `json:"id"`
-	Sender_id   int    `json:"sender_id"`
-	Receiver_id int    `json:"receiver_id"`
-	Content     string `json:"content"`
-	Date        string `json:"date"`
-	Msg_type    string `json:"msg_type"`
+	Id          int    `json:"id"`          // Message ID (optional for typing events)
+	Sender_id   int    `json:"sender_id"`   // ID of the sender
+	Receiver_id int    `json:"receiver_id"` // ID of the receiver
+	Content     string `json:"content"`     // Message content
+	Date        string `json:"date"`        // Date of the message
+	Msg_type    string `json:"msg_type"`    // Type of message: "msg", "typing", "stop_typing"
+	Thread_id   int    `json:"thread_id"`   // Optional: Thread ID for identifying specific threads
 }
+
 
 type Login struct {
 	Data     string `json:"emailUsername"`

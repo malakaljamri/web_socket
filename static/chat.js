@@ -342,6 +342,7 @@ log.addEventListener(
 
 document.querySelector('.close-chat').addEventListener('click', function () {
     document.querySelector('.chat-wrapper').style.display = 'none'; // Hide chat window
+    document.querySelectorAll('.typing-indicator').forEach(indicator => indicator.remove()); // Clear typing indicators
 });
 
 function sendTypingEvent() {
@@ -378,39 +379,34 @@ function sendStopTypingEvent() {
     state.conn.send(JSON.stringify(stopTypingData));
 }
 
+// Show typing indicator
+// Show typing indicator with the sender's username
 export function handleTypingEvent(newMsg) {
-    if (document.querySelector('.chat-wrapper').style.display == 'flex' && state.currentChatUserId == newMsg.sender_id) {
-        var chatUsernameElement = document.querySelector('.chat-user-username');
-        if (!chatUsernameElement.innerText.includes(' (typing...)')) {
-            chatUsernameElement.innerText += ' (typing...)';
-        }
-    } else {
-        var userElement = document.getElementById('id' + newMsg.sender_id);
-        if (userElement) {
-            var msgNotif = userElement.querySelector('.msg-notification');
-            msgNotif.style.opacity = '1';
-            msgNotif.innerText = 'typing...';
-        }
+    // Avoid duplicate typing indicators
+    if (document.getElementById(`typing-${newMsg.sender_id}`)) {
+        return;
     }
+
+    const sender = state.allUsers.find((user) => user.id === newMsg.sender_id);
+
+    if (!sender) {
+        console.warn(`User with ID ${newMsg.sender_id} not found.`);
+        return;
+    }
+
+    const container = document.querySelector('.chat-wrapper');
+    const indicator = document.createElement('div');
+    indicator.id = `typing-${newMsg.sender_id}`;
+    indicator.className = 'typing-indicator';
+    indicator.innerText = `${sender.username} is typing...`;
+    container.appendChild(indicator);
 }
 
+
+// Remove typing indicator
 export function handleStopTypingEvent(newMsg) {
-    if (document.querySelector('.chat-wrapper').style.display == 'flex' && state.currentChatUserId == newMsg.sender_id) {
-        var chatUsernameElement = document.querySelector('.chat-user-username');
-        chatUsernameElement.innerText = state.allUsers.find((u) => u.id === state.currentChatUserId).username;
-    } else {
-        var userElement = document.getElementById('id' + newMsg.sender_id);
-        if (userElement) {
-            var msgNotif = userElement.querySelector('.msg-notification');
-            let unreadMsgs = state.unread.filter((u) => {
-                return u[0] == newMsg.sender_id;
-            });
-            if (unreadMsgs.length != 0 && unreadMsgs[0][1] != 0) {
-                msgNotif.innerText = unreadMsgs[0][1];
-            } else {
-                msgNotif.style.opacity = '0';
-                msgNotif.innerText = '';
-            }
-        }
+    const typingIndicator = document.getElementById(`typing-${newMsg.sender_id}`);
+    if (typingIndicator) {
+        typingIndicator.remove();
     }
 }

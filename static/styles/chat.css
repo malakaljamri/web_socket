@@ -156,3 +156,8 @@
     height: 20px;
     filter: brightness(0) invert(1);
 }
+.typing-indicator {
+    font-style: italic;
+    color: gray;
+    margin-top: 5px;
+}

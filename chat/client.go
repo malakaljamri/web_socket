@@ -37,47 +37,52 @@ type Client struct {
 }
 
 func (c *Client) read() {
-	defer func() {
-		c.hub.unregister <- c
-		c.conn.Close()
-	}()
-	c.conn.SetReadLimit(maxMessageSize)
-	c.conn.SetReadDeadline(time.Now().Add(pongWait))
-	c.conn.SetPongHandler(func(string) error { c.conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
-	for {
-		_, message, err := c.conn.ReadMessage()
-		if err != nil {
-			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-				log.Printf("error: %v", err)
-			}
-			break
-		}
+    defer func() {
+        c.hub.unregister <- c
+        c.conn.Close()
+    }()
+    c.conn.SetReadLimit(maxMessageSize)
+    c.conn.SetReadDeadline(time.Now().Add(pongWait))
+    c.conn.SetPongHandler(func(string) error { c.conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
+    for {
+        _, message, err := c.conn.ReadMessage()
+        if err != nil {
+            if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+                log.Printf("error: %v", err)
+            }
+            break
+        }
 
-		var msg structs.Message
+        var msg structs.Message
+        if err := json.Unmarshal(message, &msg); err != nil {
+            panic(err)
+        }
 
-		if err := json.Unmarshal(message, &msg); err != nil {
-			panic(err)
-		}
+        msg.Sender_id = c.userID
 
-		msg.Sender_id = c.userID
+        // Add handling for typing events
+        if msg.Msg_type == "typing" || msg.Msg_type == "stop_typing" {
+            c.hub.broadcast <- message
+            continue
+        }
 
-		if msg.Msg_type == "msg" {
-			msg.Date = time.Now().Format("Mon, 02 Jan 2006 03:04 PM")
+        if msg.Msg_type == "msg" {
+            msg.Date = time.Now().Format("Mon, 02 Jan 2006 03:04 PM")
+            err = database.NewMessage(config.Path, msg)
+            if err != nil {
+                panic(err)
+            }
+        }
 
-			err = database.NewMessage(config.Path, msg)
-			if err != nil {
-				panic(err)
-			}
-		}
+        sendMsg, err := json.Marshal(msg)
+        if err != nil {
+            panic(err)
+        }
 
-		sendMsg, err := json.Marshal(msg)
-		if err != nil {
-			panic(err)
-		}
-
-		c.hub.broadcast <- sendMsg
-	}
+        c.hub.broadcast <- sendMsg
+    }
 }
+
 
 func (c *Client) write() {
 	ticker := time.NewTicker(pingPeriod)

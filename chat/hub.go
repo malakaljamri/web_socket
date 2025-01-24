@@ -92,21 +92,19 @@ func (h *Hub) Run() {
 				close(client.send)
 			}
 		case message := <-h.broadcast:
-			// insert message and ids to database
 			var msg structs.Message
-
 			if err := json.Unmarshal(message, &msg); err != nil {
 				panic(err)
 			}
-
+		
 			sendMsg, err := json.Marshal(msg)
 			if err != nil {
 				panic(err)
 			}
-
-			if msg.Msg_type == "msg" || msg.Msg_type == "typing" || msg.Msg_type == "stop_typing" {
+		
+			if msg.Msg_type == "typing" || msg.Msg_type == "stop_typing" {
 				for _, client := range h.clients {
-					if client.userID == msg.Receiver_id {
+					if client.userID != msg.Sender_id { // Send to others in the same thread
 						select {
 						case client.send <- sendMsg:
 						default:
@@ -117,7 +115,7 @@ func (h *Hub) Run() {
 				}
 			} else {
 				for _, client := range h.clients {
-					if client.userID != msg.Sender_id {
+					if client.userID == msg.Receiver_id {
 						select {
 						case client.send <- sendMsg:
 						default:
@@ -126,7 +124,7 @@ func (h *Hub) Run() {
 						}
 					}
 				}
-			}
+			} 
 		}
 	}
 }
