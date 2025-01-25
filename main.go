@@ -15,9 +15,12 @@ func main() {
 	database.InitDB(config.Path)
 
 	mux := http.NewServeMux()
+	//where all connected users (clients) can send and receive real-time messages.
 	hub := chat.NewHub()
+	//It keeps track of who’s inside (connected users),It decides what messages to send to whom
 	go hub.Run()
 
+	//not un
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 
 	mux.HandleFunc("/", handlers.HomeHandler)
@@ -44,7 +47,9 @@ func main() {
 
 	log.Println("Server is running on http://localhost:" + port)
 
-	if err := http.ListenAndServe(":"+port, mux); err != nil {
+	//The mux (router) ensures each request is handled correctly.
+	if err := http.ListenAndServe(":"+port, mux);
+	 err != nil {
 		log.Fatal(err)
 	}
 }

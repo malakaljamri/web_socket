@@ -33,10 +33,13 @@ func NewHub() *Hub {
 
 func (h *Hub) Run() {
 	for {
+		//used to wait for communication on multiple channels.
 		select {
+			// The Hub waits for a new client to send itself to the register channel.
 		case client := <-h.register:
 			h.clients[client.userID] = client
 
+			//slice to save userid uids = [5, 7]
 			var uids []int
 
 			for i := range h.clients {
@@ -48,23 +51,30 @@ func (h *Hub) Run() {
 				Msg_type: "online",
 			}
 
+			//The message (msg) is converted into a JSON string 
+			//so it can be sent to clients over WebSocket.
+			//{"UserIds":[5,7],"Msg_type":"online"}
 			sendMsg, err := json.Marshal(msg)
 			if err != nil {
 				panic(err)
 			}
 
+			//c represents each Client object in the clients map.
 			for _, c := range h.clients {
 				select {
 				case c.send <- sendMsg:
 				default:
 					close(c.send)
+					//delete(h.clients, 2)
 					delete(h.clients, c.userID)
 				}
 			}
 		case client := <-h.unregister:
+			//Checks if the disconnected client (client.userID) exists in the clients map.
 			if _, ok := h.clients[client.userID]; ok {
 				delete(h.clients, client.userID)
 
+				//contains the userID of every client still connected.
 				var uids []int
 
 				for i := range h.clients {
@@ -80,9 +90,11 @@ func (h *Hub) Run() {
 				if err != nil {
 					panic(err)
 				}
-
+				//Loops through all remaining clients in the clients map 
+				//and sends them the updated list of online users.
 				for _, c := range h.clients {
 					select {
+						//If the client’s send channel is ready, the message is sent.
 					case c.send <- sendMsg:
 					default:
 						close(c.send)
@@ -102,9 +114,10 @@ func (h *Hub) Run() {
 				panic(err)
 			}
 		
+			// Handle typing and stop_typing messages
 			if msg.Msg_type == "typing" || msg.Msg_type == "stop_typing" {
 				for _, client := range h.clients {
-					if client.userID != msg.Sender_id { // Send to others in the same thread
+					if client.userID == msg.Receiver_id { // Only send to the intended receiver
 						select {
 						case client.send <- sendMsg:
 						default:
@@ -114,8 +127,9 @@ func (h *Hub) Run() {
 					}
 				}
 			} else {
+				// Handle regular chat messages
 				for _, client := range h.clients {
-					if client.userID == msg.Receiver_id {
+					if client.userID == msg.Receiver_id { // Send only to the intended receiver
 						select {
 						case client.send <- sendMsg:
 						default:
@@ -124,7 +138,8 @@ func (h *Hub) Run() {
 						}
 					}
 				}
-			} 
+			}
+		
 		}
 	}
 }
