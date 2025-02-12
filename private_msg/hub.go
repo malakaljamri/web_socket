@@ -1,4 +1,4 @@
-package chat
+package private_msg
 
 import (
 	"encoding/json"

@@ -5,17 +5,18 @@ import (
 	"net/http"
 	"strconv"
 
-	"real-time-forum/chat"
 	"real-time-forum/config"
 	"real-time-forum/database"
 	"real-time-forum/handlers"
+	"real-time-forum/private_msg"
 )
 
+// the sets up a web server that handles various application endpoints, serves static files, and establishes WebSocket connections.
 func main() {
 	database.InitDB(config.Path)
 
 	mux := http.NewServeMux()
-	hub := chat.NewHub()
+	hub := private_msg.NewHub()
 	go hub.Run()
 
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
@@ -32,7 +33,7 @@ func main() {
 	mux.HandleFunc("/like", handlers.LikeHandler)
 	mux.HandleFunc("/chat", handlers.ChatHandler)
 	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		chat.ServeWs(hub, w, r)
+		private_msg.ServeWs(hub, w, r)
 	})
 
 	port := strconv.Itoa(config.Port)
