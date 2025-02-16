@@ -144,13 +144,29 @@ function CreateMessages(data, currId, prepend = false) {
 
         var message = document.createElement('div');
         message.className = sender_id == currId ? 'sender' : 'receiver';
-        message.innerText = content;
+
+        // Add username element
+        var username = document.createElement('div');
+        username.className = 'chat-username';
+        if (sender_id == currId) {
+            username.innerText = state.username || 'You';
+        } else {
+            // Find the sender's username from allUsers
+            const sender = state.allUsers.find(user => user.id === sender_id);
+            username.innerText = sender ? sender.username : 'Unknown User';
+        }
+        
+        var messageContent = document.createElement('div');
+        messageContent.className = 'message-content';
+        messageContent.innerText = content;
 
         var messageDate = document.createElement('div');
         messageDate.className = 'chat-time';
         messageDate.innerText = date.slice(0, -3);
 
         messageContainer.appendChild(message);
+        message.appendChild(username);
+        message.appendChild(messageContent);
         message.appendChild(messageDate);
 
         if (prepend) {
@@ -214,13 +230,23 @@ function appendSentMessage(msgData) {
 
     var message = document.createElement('div');
     message.className = 'sender';
-    message.innerText = msgData.content; // Set message content
+
+    // Add username element
+    var username = document.createElement('div');
+    username.className = 'chat-username';
+    username.innerText = state.username || 'You';
+
+    var messageContent = document.createElement('div');
+    messageContent.className = 'message-content';
+    messageContent.innerText = msgData.content;
 
     var messageDate = document.createElement('div');
     messageDate.className = 'chat-time';
     messageDate.innerText = 'Sending...'; // Temporary placeholder
 
     messageContainer.appendChild(message);
+    message.appendChild(username);
+    message.appendChild(messageContent);
     message.appendChild(messageDate);
 
     let now = new Date();

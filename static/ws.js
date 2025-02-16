@@ -48,15 +48,33 @@ export function startWS() {
                     var senderContainer = document.createElement('div');
                     senderContainer.className = newMsg.sender_id == state.currId ? 'sender-container' : 'receiver-container';
 
-                    var sender = document.createElement('div');
-                    sender.className = newMsg.sender_id == state.currId ? 'sender' : 'receiver';
-                    sender.innerText = newMsg.content;
+                    var message = document.createElement('div');
+                    message.className = newMsg.sender_id == state.currId ? 'sender' : 'receiver';
+
+                    // Add username element
+                    var username = document.createElement('div');
+                    username.className = 'chat-username';
+                    if (newMsg.sender_id == state.currId) {
+                        username.innerText = state.currUsername || 'You';
+                    } else {
+                        // Find the sender's username from allUsers
+                        const sender = state.allUsers.find(user => user.id === newMsg.sender_id);
+                        username.innerText = sender ? sender.username : 'Unknown User';
+                    }
+
+                    var messageContent = document.createElement('div');
+                    messageContent.className = 'message-content';
+                    messageContent.innerText = newMsg.content;
 
                     var date = document.createElement('div');
                     date.className = 'chat-time';
                     date.innerText = newMsg.date.slice(0, -3);
 
-                    appendLog(senderContainer, sender, date);
+                    message.appendChild(username);
+                    message.appendChild(messageContent);
+                    message.appendChild(date);
+
+                    appendLog(senderContainer, message, date);
 
                     if (newMsg.sender_id == state.currId) {
                         console.log('Message is from current user, skipping notification');
@@ -98,8 +116,8 @@ export function startWS() {
                         console.log('Sender found:', sender);
 
                         popup.innerHTML = `
-                                    <div style="font-weight: bold; margin-bottom: 5px;">${senderName}</div>
-                                    <div>${newMsg.content}</div>
+                            <div style="font-weight: bold; margin-bottom: 5px;">${senderName}</div>
+                            <div>${newMsg.content}</div>
                         `;
 
                         // Add to document
