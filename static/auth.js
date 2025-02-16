@@ -116,7 +116,7 @@ document.querySelector('.register-btn').addEventListener('click', function (e) {
     const lname = document.querySelector('#lname').value;
     const email = document.querySelector('#email').value;
     const username = document.querySelector('#register-username').value;
-    const age = document.querySelector('#age').value;
+    const dob = document.querySelector('#dob').value;
     const gender = document.querySelector('#gender').value;
     const password = document.querySelector('#register-password').value;
 
@@ -125,12 +125,19 @@ document.querySelector('.register-btn').addEventListener('click', function (e) {
     msg += lname == '' ? 'Enter a surname. ' : '';
     msg += email == '' ? 'Enter an email. ' : '';
     msg += username == '' ? 'Enter a username. ' : '';
-    msg += age == '' ? 'Enter a DOB. ' : '';
+    msg += dob == '' ? 'Enter a date of birth. ' : '';
     msg += gender == '' ? 'Enter a gender. ' : '';
     msg += password == '' ? 'Enter a password. ' : '';
 
     if (msg != '') {
         alert(msg); // Alert user of missing fields
+        return;
+    }
+
+    // Validate date format
+    const dobDate = new Date(dob);
+    if (isNaN(dobDate.getTime())) {
+        alert('Please enter a valid date of birth');
         return;
     }
 
@@ -142,7 +149,7 @@ document.querySelector('.register-btn').addEventListener('click', function (e) {
         surname: lname,
         gender: gender,
         email: email,
-        dob: age,
+        dob: dob,
         password: password,
     };
 
