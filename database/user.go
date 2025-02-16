@@ -47,6 +47,10 @@ func ConvertRowToUser(rows *sql.Rows) ([]structs.User, error) {
 		users = append(users, u)
 	}
 
+	if len(users) == 0 {
+		return users, errors.New("no user found")
+	}
+
 	return users, nil
 }
 
@@ -114,17 +118,14 @@ func FindUserByParam(path, parameter, data string) (structs.User, error) {
 			return structs.User{}, errors.New("could not find email")
 		}
 	default:
-		//Returns an error if searched by a different parameter
-		return structs.User{}, errors.New("cannot search by that parameter")
+		return structs.User{}, errors.New("invalid parameter")
 	}
 
-	//Converts the database row to a user struct
-	user, err := ConvertRowToUser(q)
+	users, err := ConvertRowToUser(q)
 	if err != nil {
-		return structs.User{}, errors.New("failed to convert")
+		return structs.User{}, err
 	}
-
-	return user[0], nil
+	return users[0], nil
 }
 
 // Finds the currently logged in user from the cookie
