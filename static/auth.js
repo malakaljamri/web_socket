@@ -165,6 +165,30 @@ document.querySelector('.register-btn').addEventListener('click', function (e) {
     });
 });
 
+// Add logout handler
+logoutNav.addEventListener('click', function() {
+    // Close WebSocket connection
+    closeWS();
+    
+    // Reset state
+    state.currId = null;
+    state.currUsername = null;
+    
+    // Show login page and hide content
+    signinContainer.classList.add('active');
+    signinContainer.style.display = 'block';
+    registerContainer.classList.remove('active');
+    contentWrapper.style.display = 'none';
+    
+    // Show signup nav and hide logout nav
+    signupNav.style.display = 'flex';
+    logoutNav.style.display = 'none';
+    
+    // Clear any existing form fields
+    document.querySelector('#email-username').value = '';
+    document.querySelector('#signin-password').value = '';
+});
+
 document.querySelector('.logout-btn').addEventListener('click', function () {
     var msg;
     // Send logout request to the server
