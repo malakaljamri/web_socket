@@ -121,11 +121,11 @@ func FindUserByParam(path, parameter, data string) (structs.User, error) {
 		return structs.User{}, errors.New("invalid parameter")
 	}
 
-	users, err := ConvertRowToUser(q)
+	user, err := ConvertRowToUser(q)
 	if err != nil {
-		return structs.User{}, err
+		return structs.User{}, errors.New("failed to convert")
 	}
-	return users[0], nil
+	return user[0], nil
 }
 
 // Finds the currently logged in user from the cookie
