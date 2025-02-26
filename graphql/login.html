@@ -1,0 +1,46 @@
+<input type="text" id="username" placeholder="Username or Email">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<script>
+    async function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (!username || !password) {
+        alert("Username and password are required.");
+        return;
+    }
+
+    const credentials = btoa(`${username}:${password}`);
+
+    try {
+        const response = await fetch("https://learn.reboot01.com/api/auth/signin", {
+            method: "POST",
+            headers: { 
+                "Authorization": `Basic ${credentials}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        const responseText = await response.text(); // Get raw response
+        console.log("Raw Response:", responseText);
+
+        if (!response.ok) {
+            alert("Login failed: " + responseText);
+            return;
+        }
+
+        // Store token in localStorage
+        const token = responseText.replace(/["']/g, ""); // Remove extra quotes
+        localStorage.setItem("jwt", token);
+        alert("Login successful!");
+
+    } catch (error) {
+        console.error("Network error:", error);
+        alert("Network error. Check console for details.");
+    }
+}
+
+
+</script>
